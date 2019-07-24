@@ -1,0 +1,44 @@
+
+
+
+body {
+background-color: rgb(51, 197, 185);
+}
+
+#main {
+
+margin: 0 auto;
+
+width: 1800px;
+height: 1800px;
+
+min-width: 500px ;
+min-height: 500px; 
+
+background-color: rgb(255, 224, 49);
+position: absolute;
+
+left:0;
+right:0;
+top:0; 
+bottom:0;
+        
+margin:auto; 
+
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: 1fr 1fr 1fr;
+
+
+}
+
+#main>div{
+    border: solid black 6px; 
+}
+
+p{
+    font-size: 400px;
+    text-align: center;
+    margin-top: 50px;
+    margin: 0 auto;
+}
