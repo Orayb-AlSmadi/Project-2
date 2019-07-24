@@ -3,6 +3,19 @@ var clic = 1;
 var n = [];
 var z = [true, true, true, true, true, true, true, true, true]
 
+$("#main").click(function (){
+    if (z.indexOf(true) == -1) {
+        return
+    }
+    if (clic % 2 === 0) {
+        $("#turn").text("player 2");
+    }
+    else 
+    $("#turn").text("player 1");
+
+})
+
+
 $("#d1").click(function () {
     if (z[0] === true) {
         if (clic % 2 === 0) {
@@ -10,7 +23,7 @@ $("#d1").click(function () {
             clic++;
         }
         else {
-            $("#n1").text("x");
+            $("#n1").text("X");
             clic++;
         }
         z[0] = false;
@@ -26,7 +39,7 @@ $("#d2").click(function () {
             clic++;
         }
         else {
-            $("#n2").text("x");
+            $("#n2").text("X");
             clic++;
         }
         z[1] = false;
@@ -37,13 +50,14 @@ $("#d2").click(function () {
 
 
 $("#d3").click(function () {
+  
     if (z[2] === true) {
         if (clic % 2 === 0) {
             $("#n3").text("O");
             clic++;
         }
         else {
-            $("#n3").text("x");
+            $("#n3").text("X");
             clic++;
         }
         z[2] = false;
@@ -60,7 +74,7 @@ $("#d4").click(function () {
             clic++;
         }
         else {
-            $("#n4").text("x");
+            $("#n4").text("X");
             clic++;
         }
         z[3] = false;
@@ -76,7 +90,7 @@ $("#d5").click(function () {
             clic++;
         }
         else {
-            $("#n5").text("x");
+            $("#n5").text("X");
             clic++;
         }
         z[4] = false;
@@ -93,7 +107,7 @@ $("#d6").click(function () {
             clic++;
         }
         else {
-            $("#n6").text("x");
+            $("#n6").text("X");
             clic++;
         }
         z[5] = false;
@@ -111,7 +125,7 @@ $("#d7").click(function () {
             clic++;
         }
         else {
-            $("#n7").text("x");
+            $("#n7").text("X");
 
             clic++;
         }
@@ -132,7 +146,7 @@ $("#d8").click(function () {
             clic++;
         }
         else {
-            $("#n8").text("x");
+            $("#n8").text("X");
             clic++;
         }
         z[7] = false;
@@ -145,6 +159,7 @@ $("#d8").click(function () {
 
 $("#d9").click(function () {
     if (z[8] === true) {
+        
         if (clic % 2 === 0) {
             $("#n9").text("O");
             clic++;
@@ -174,63 +189,61 @@ function check() {
     if (n[0] === n[1] && n[0] === n[2]
         && n[0] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[0] === "x")
-
-            console.log("x winner");
+        if (n[0] === "X"){
+             $("#turn").text("x winner");}
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
     if (n[3] === n[4] && n[4] === n[5] && n[3] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[3] === "x")
-            console.log("x winner");
+        if (n[3] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
     if (n[6] === n[7] && n[6] === n[8] && n[6] !== " ") {
 
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[6] === "x")
-            console.log("x winner");
+        if (n[6] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
     if (n[0] === n[3] && n[0] === n[6] && n[0] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[0] === "x")
-            console.log("x winner");
+        if (n[0] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
     if (n[1] === n[4] && n[1] === n[7] && n[1] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[4] === "x")
-            console.log("x winner");
+        if (n[4] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
     if (n[2] === n[5] && n[2] === n[8] && n[2] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[2] === "x")
-            console.log("x winner");
+        if (n[2] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
 
     }
     if (n[2] === n[4] && n[2] === n[6] && n[2] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[2] === "x")
-            console.log("x winner");
+        if (n[2] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
     if (n[0] === n[4] && n[0] === n[8] && n[0] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
-        if (n[0] === "x")
-
-            console.log("x winner");
+        if (n[0] === "X")
+             $("#turn").text("x winner");
         else
-            console.log("o winner")
+             $("#turn").text("o winner")
     }
 
 
