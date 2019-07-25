@@ -1,23 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>X-O Game</title>
 </head>
+
 <body>
- 
-<p style="background-color: black;"> X-O </p>
-<div  class="turn"> <p style="background-color: black;" id="turn"> player 1</p> </div>
 
-<div id="main">
-</div>
+    <p style="background-color: black;"> X-O </p>
 
-<script src="logic2.js">    </script>
+
+    <div id="page1">
+
+        <div id="container1">
+
+            <h1 id = "welcome"> Welcome to our game </h1>
+            <ul>
+                <li> player 1 will start with X  </li>
+                <li> player 2 will start with O</li>
+                <li> Each tournament contain 3 games, who wins 2 out of 3 will win  </li>
+
+            </ul>
+        </div>
+
+        <div class="col-md text-center">  
+            <button id="play" type="button" class="btn btn-warning btn-lg center-block">  <span style="font-size:35px; font-family: 'Indie Flower', cursive;
+                font-weight: bold;  "> Let's Play! </span></button>
+        </div> 
+       
+
+    </div>
+
+
+    <div id="page2">
+        <div class="turn">
+            <p style="background-color: black;" id="turn"> player 1</p>
+        </div>
+
+
+        <div id="container">
+
+            <div id="main">
+            </div>
+
+            <div id="details">
+
+                <div id="d1" style="background-color: black; border: solid black 2px; ">
+                    <div id="d11" style=" border: solid black 2px; "> <p> Player1 </p> </div>
+                    <div id="d12" style="background-color: blue; border: solid black 2px; "></div>
+                    <div id="d13" style="background-color: blue; border: solid black 2px; "></div>
+
+
+                </div>
+
+                <div id="d2" style="background-color: white; border: solid black 2px; ">
+                    <div id="d21" style="background-color: blue; border: solid black 2px; "></div>
+                    <div id="d22" style="background-color: blue; border: solid black 2px; "></div>
+                    <div id="d23" style="background-color: blue; border: solid black 2px; "></div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <script src="logic2.js">    </script>
 
 
 </body>
+
 </html>

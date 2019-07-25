@@ -3,6 +3,14 @@ var clic = 1;
 var n = [];
 var z = [true, true, true, true, true, true, true, true, true]
 
+$("#play").click(function (){
+  
+   $("#page1").css("display", "none");
+//    $("#page2").css("display", "block");
+    $("#page2").fadeIn( 1000 );
+}
+)
+
 $("#main").click(function (){
     if (z.indexOf(true) == -1) {
         return
@@ -16,6 +24,7 @@ $("#main").click(function (){
 })
 
 function clickchange (container) {
+    debugger
     if (z[container.currentTarget.id] === true) {
         if (clic % 2 === 0) {
             document.getElementById("n"+container.currentTarget.id).innerHTML = "O"

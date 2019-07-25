@@ -183,16 +183,13 @@ function check() {
         n[i] = $(s).text()
     }
 
-
-
-
     if (n[0] === n[1] && n[0] === n[2]
         && n[0] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
         if (n[0] === "X"){
              $("#turn").text("x winner");}
         else
-             $("#turn").text("o winner")
+             $("#turn").text("o 3")
     }
     if (n[3] === n[4] && n[4] === n[5] && n[3] !== " ") {
         z = [false, false, false, false, false, false, false, false, false]
