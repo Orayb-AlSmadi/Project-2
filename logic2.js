@@ -5,6 +5,7 @@ var z = [true, true, true, true, true, true, true, true, true]
 var names = ["player 1", "player 2"]
 var xwin = 0;
 var owin = 0;
+var gameFinish = false;
 
 $("#next").click(function () {
 
@@ -95,6 +96,8 @@ for (var i = 0; i < 9; i++) {
 }
 
 function check() {
+     if (gameFinish )
+     {return }
 
     for (var i = 0; i < 9; i++) {
         var s = "#n" + i
@@ -103,7 +106,7 @@ function check() {
 
     // var q= z.indexOf(true) - 1
     debugger
-    if (( z.indexOf(true) - 1 != -2 )) {
+  {
         if (n[0] === n[1] && n[0] === n[2] && n[0] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[0] === "X") {
@@ -118,6 +121,7 @@ function check() {
                 $("#owin").text(owin)
             }
             $("#n0, #n1, #n2").css("color", "yellow")
+            gameFinish = true;
         }
         if (n[3] === n[4] && n[4] === n[5] && n[3] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
@@ -132,7 +136,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n3, #n4, #n5").css("color", "yellow")
+            $("#n3, #n4, #n5").css("color", "yellow");
+            gameFinish = true;
         }
         if (n[6] === n[7] && n[6] === n[8] && n[6] !== "") {
 
@@ -148,7 +153,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n6, #n7, #n8").css("color", "yellow")
+            $("#n6, #n7, #n8").css("color", "yellow");
+            gameFinish = true;
         }
         if (n[0] === n[3] && n[0] === n[6] && n[0] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
@@ -163,7 +169,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n0, #n3, #n6").css("color", "yellow")
+            $("#n0, #n3, #n6").css("color", "yellow");
+            gameFinish = true;
         }
         if (n[1] === n[4] && n[1] === n[7] && n[1] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
@@ -177,7 +184,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n4, #n1, #n7").css("color", "yellow")
+            $("#n4, #n1, #n7").css("color", "yellow");
+            gameFinish = true;
         }
         if (n[2] === n[5] && n[2] === n[8] && n[2] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
@@ -192,7 +200,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n5, #n8, #n2").css("color", "yellow")
+            $("#n5, #n8, #n2").css("color", "yellow");
+            gameFinish = true;
 
         }
         if (n[2] === n[4] && n[2] === n[6] && n[2] !== "") {
@@ -208,7 +217,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n4, #n6, #n2").css("color", "yellow")
+            $("#n4, #n6, #n2").css("color", "yellow");
+            gameFinish = true;
         }
         if (n[0] === n[4] && n[0] === n[8] && n[0] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
@@ -223,7 +233,8 @@ function check() {
                 owin++;
                 $("#owin").text(owin)
             }
-            $("#n0, #n4, #n8").css("color", "yellow")
+            $("#n0, #n4, #n8").css("color", "yellow");
+            gameFinish = true;
         }
     }
 }
