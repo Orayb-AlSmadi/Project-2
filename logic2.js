@@ -12,11 +12,12 @@ $("#next").click(function () {
     clic = 1;
     var n = [];
      z = [true, true, true, true, true, true, true, true, true];
-    $("#turn").text("player 1")
+    $("#turn").text(names[0])
     $("#n0, #n1, #n2, #n3 , #n4, #n5, #n6, #n7, #n8").css("color", "white")
     for (var i=0; i<9; i++ ) {
     document.getElementById("n" +i).innerHTML = "";
 }
+gameFinish = false;
 }
 )
 
@@ -52,7 +53,7 @@ $("#play").click(function () {
 
     $("#name1").text(names[0]);
     $("#name2").text(names[1]);
-
+    $("#turn").text(names[0])
 }
 )
 
@@ -61,10 +62,10 @@ $("#main").click(function () {
         return
     }
     if (clic % 2 === 0) {
-        $("#turn").text("player 2");
+        $("#turn").text(names[1]);
     }
     else
-        $("#turn").text("player 1");
+        $("#turn").text(names[0]);
 
 })
 
@@ -95,6 +96,19 @@ for (var i = 0; i < 9; i++) {
     document.getElementById('main').appendChild(divelement);
 }
 
+function finalwin (){
+if(xwin === 2){
+    $("#page2").css("display", "none");
+    $("#page3").fadeIn(5000);
+    $("#winner").text(names[0] + " is the final winner")
+}
+else if (owin === 2){
+    $("#page2").css("display", "none");
+    $("#page3").fadeIn(5000);
+    $("#winner").text(names[1] + " is the final winner")
+}
+}
+
 function check() {
      if (gameFinish )
      {return }
@@ -104,8 +118,6 @@ function check() {
         n[i] = $(s).text()
     }
 
-    // var q= z.indexOf(true) - 1
-    debugger
   {
         if (n[0] === n[1] && n[0] === n[2] && n[0] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
@@ -123,7 +135,7 @@ function check() {
             $("#n0, #n1, #n2").css("color", "yellow")
             gameFinish = true;
         }
-        if (n[3] === n[4] && n[4] === n[5] && n[3] !== "") {
+        else if (n[3] === n[4] && n[4] === n[5] && n[3] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[3] === "X") {
                 $("#turn").text(names[0] + " is the winner");
@@ -139,7 +151,7 @@ function check() {
             $("#n3, #n4, #n5").css("color", "yellow");
             gameFinish = true;
         }
-        if (n[6] === n[7] && n[6] === n[8] && n[6] !== "") {
+        else if (n[6] === n[7] && n[6] === n[8] && n[6] !== "") {
 
             z = [false, false, false, false, false, false, false, false, false]
             if (n[6] === "X") {
@@ -156,7 +168,7 @@ function check() {
             $("#n6, #n7, #n8").css("color", "yellow");
             gameFinish = true;
         }
-        if (n[0] === n[3] && n[0] === n[6] && n[0] !== "") {
+        else if (n[0] === n[3] && n[0] === n[6] && n[0] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[0] === "X") {
                 $("#turn").text(names[0] + " is the winner");
@@ -172,7 +184,7 @@ function check() {
             $("#n0, #n3, #n6").css("color", "yellow");
             gameFinish = true;
         }
-        if (n[1] === n[4] && n[1] === n[7] && n[1] !== "") {
+        else if (n[1] === n[4] && n[1] === n[7] && n[1] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[4] === "X") {
                 $("#turn").text(names[0] + " is the winner");
@@ -187,7 +199,7 @@ function check() {
             $("#n4, #n1, #n7").css("color", "yellow");
             gameFinish = true;
         }
-        if (n[2] === n[5] && n[2] === n[8] && n[2] !== "") {
+       else if (n[2] === n[5] && n[2] === n[8] && n[2] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[2] === "X") {
                 $("#turn").text(names[0] + " is the winner");
@@ -204,7 +216,7 @@ function check() {
             gameFinish = true;
 
         }
-        if (n[2] === n[4] && n[2] === n[6] && n[2] !== "") {
+        else if (n[2] === n[4] && n[2] === n[6] && n[2] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[2] === "X") {
                 $("#turn").text(names[0] + " is the winner");
@@ -220,7 +232,7 @@ function check() {
             $("#n4, #n6, #n2").css("color", "yellow");
             gameFinish = true;
         }
-        if (n[0] === n[4] && n[0] === n[8] && n[0] !== "") {
+       else if (n[0] === n[4] && n[0] === n[8] && n[0] !== "") {
             z = [false, false, false, false, false, false, false, false, false]
             if (n[0] === "X") {
                 $("#turn").text(names[0] + " is the winner");
@@ -236,5 +248,8 @@ function check() {
             $("#n0, #n4, #n8").css("color", "yellow");
             gameFinish = true;
         }
+        else if (z.indexOf(true) === -1)
+        $("#turn").text("Draw!")
     }
+    finalwin ();
 }

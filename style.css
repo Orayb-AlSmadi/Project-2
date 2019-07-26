@@ -52,6 +52,11 @@ margin-top: 15vh;
     display:none;
 }
 
+#win {
+    background-color: black;
+    font-size: 75px;
+}
+
 #details {
 
    
