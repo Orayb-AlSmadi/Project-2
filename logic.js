@@ -1,262 +1,464 @@
-$(document).ready()
+$(document).ready();
 var clic = 1;
 var n = [];
-var z = [true, true, true, true, true, true, true, true, true]
+var z = [true, true, true, true, true, true, true, true, true];
+var names = ["player 1", "player 2"];
+var xwin = 0;
+var owin = 0;
+var gameFinish = false;
+var u = 0;
 
-$("#main").click(function (){
-    if (z.indexOf(true) == -1) {
-        return
-    }
+$("#next").click(function() {
+  clic = 1;
+  var n = [];
+  z = [true, true, true, true, true, true, true, true, true];
+  $("#turn").text(names[0]);
+  $("#n0, #n1, #n2, #n3 , #n4, #n5, #n6, #n7, #n8").css("color", "white");
+  for (var i = 0; i < 9; i++) {
+    document.getElementById("n" + i).innerHTML = "";
+  }
+  if (u === 1) {
+    //(CHANGE ON CODE) to reset the computer variables and to put x on the middle
+    clic = 0;//(CHANGE ON CODE) to prevent the player to put O before the computer put x on mid
+    setTimeout(xOnMid,700); //(CHANGE ON CODE) time out for putting x on mid (to make it more realistic)
+    z[4] = false;
+    scenario1 = 0;
+    scenario2 = 0;
+    scenario3 = 0;
+    scenario4 = 0;
+    scenario5 = 0;
+    
+  }
+  gameFinish = false;
+});
+
+$("#reset").click(function() {
+  clic = 1;
+  var n = [];
+  z = [true, true, true, true, true, true, true, true, true];
+  $("#turn").text("player 1");
+  $("#n0, #n1, #n2, #n3 , #n4, #n5, #n6, #n7, #n8").css("color", "white");
+  for (var i = 0; i < 9; i++) {
+    document.getElementById("n" + i).innerHTML = "";
+  }
+  xwin = 0;
+  owin = 0;
+  $("#xwin").text(xwin);
+  $("#owin").text(owin);
+});
+
+function reloadPage() {
+  location.reload(true);
+}
+
+$("#singleplayer").click(function() {
+  u = 1;
+  clic = 0; //(CHANGE ON CODE) to prevent the player to put O before the computer put x on mid
+  $("#page1").css("display", "none");
+  $("#page2").fadeIn(1000);
+  if ($("#singlePlayerName").val() !== "") names[1] = $("#singlePlayerName").val();
+  names[0] = "Computer";
+  $("#name1").text(names[0]);
+
+  $("#name2").text(names[1]);
+  $("#turn").text(names[0]);
+  setTimeout(xOnMid,700); //(CHANGE ON CODE) time out for putting x on mid (to make it more realistic)
+//   $("#turn").text(names[1]);//(CHANGE ON CODE) delete this statement; we added it in function xOnMid, to let the turn changes to player's turn after the computer put x on the middle
+  z[4] = false;
+});
+
+function xOnMid () //(CHANGE ON CODE) function to put x on the middle
+{
+    $("#n4").text("X");
+    $("#turn").text(names[1]);
+    clic++; //(CHANGE ON CODE) after the computer put x on mid, the player now can put O
+}
+
+$("#multiplayer").click(function() {
+  u = 0;
+  $("#page1").css("display", "none");
+  $("#page2").fadeIn(1000);
+  if ($("#p1n").val() !== "") names[0] = $("#p1n").val();
+  if ($("#p2n").val() !== "") names[1] = $("#p2n").val();
+
+  $("#name1").text(names[0]);
+  $("#name2").text(names[1]);
+  $("#turn").text(names[0]);
+});
+
+$("#main").click(function() {
+  if (z.indexOf(true) == -1) {
+    return;
+  }
+  if (u === 0) {
     if (clic % 2 === 0) {
-        $("#turn").text("player 2");
-    }
-    else 
-    $("#turn").text("player 1");
+      $("#turn").text(names[1]);
+    } else $("#turn").text(names[0]);
+  } else {
+    $("#turn").text(names[0]);
+  }
+});
 
-})
-
-
-$("#d1").click(function () {
-    if (z[0] === true) {
-        if (clic % 2 === 0) {
-            $("#n1").text("O");
-            clic++;
-        }
-        else {
-            $("#n1").text("X");
-            clic++;
-        }
-        z[0] = false;
-    }
-    check();
-}
-)
-
-$("#d2").click(function () {
-    if (z[1] === true) {
-        if (clic % 2 === 0) {
-            $("#n2").text("O");
-            clic++;
-        }
-        else {
-            $("#n2").text("X");
-            clic++;
-        }
-        z[1] = false;
+function clickchange(container) {
+  if (u === 0) {
+    if (z[container.currentTarget.id] === true) {
+      if (clic % 2 === 0) {
+        document.getElementById("n" + container.currentTarget.id).innerHTML = "O";
+        clic++;
+      } else {
+        document.getElementById("n" + container.currentTarget.id).innerHTML = "X";
+        clic++;
+      }
+      z[container.currentTarget.id] = false;
     }
     check();
-}
-)
-
-
-$("#d3").click(function () {
-  
-    if (z[2] === true) {
-        if (clic % 2 === 0) {
-            $("#n3").text("O");
-            clic++;
-        }
-        else {
-            $("#n3").text("X");
-            clic++;
-        }
-        z[2] = false;
+  } else if (z[container.currentTarget.id] === true) {
+    if (clic % 2 !== 0) {
+      document.getElementById("n" + container.currentTarget.id).innerHTML = "O";
+      check(); //(CHANGE ON CODE) to check if the player wins before the computer do the next move
+      clic = clic + 1; //(CHANGE ON CODE) changed from clic +2 to clic + 1 and the other +1 is inside the computer function .. and like this the player cant click untill the computer function ends.
+    //   setTimeout(clicplus, 1000);
+      if(gameFinish === false) // //(CHANGE ON CODE) to prevent the computer to put x if the game finish
+      setTimeout(computer, 1000);
+      z[container.currentTarget.id] = false; //(CHANGE ON CODE) moved this inside the if to fix the bug
     }
-    check();
+    
+  }
 }
-)
+// function clicplus()
+// {
+//     clic = clic + 1;
+// }
 
-
-$("#d4").click(function () {
-    if (z[3] === true) {
-        if (clic % 2 === 0) {
-            $("#n4").text("O");
-            clic++;
-        }
-        else {
-            $("#n4").text("X");
-            clic++;
-        }
-        z[3] = false;
-    }
-    check();
+var scenario1 = 0; //(CHANGE ON CODE) this variable is for computer turns number
+var scenario2 = 0;
+var scenario3 = 0;
+var scenario4 = 0;
+var scenario5 = 0;
+function computer() {
+  for (var i = 0; i < 9; i++) {
+    var s = "#n" + i;
+    n[i] = $(s).text();
+  }
+  //scenario 1
+  if ((n[1] === "O" || n[3] === "O" || n[7] === "O" || n[5] === "O") && scenario1 === 0) {
+    document.getElementById("n2").innerHTML = "X";
+    scenario1++;
+    scenario2 = -1;
+    scenario3 = -1;
+    scenario4 = -1;
+    scenario5 = -1;
+    z[2] = false;
+  } else if (n[6] !== "O" && scenario1 === 1) {
+    document.getElementById("n6").innerHTML = "X";
+    scenario1++;
+    z[6] = false;
+  } else if (n[8] !== "O" && scenario1 === 1) {
+    document.getElementById("n8").innerHTML = "X";
+    scenario1++;
+    z[8] = false;
+  } else if (n[5] !== "O" && scenario1 === 2) {
+    document.getElementById("n5").innerHTML = "X";
+    scenario1++;
+    z[5] = false;
+  } else if (n[0] !== "O" && scenario1 === 2) {
+    document.getElementById("n0").innerHTML = "X";
+    scenario1++;
+    z[0] = false;
+  } else if (n[3] !== "O" && scenario1 === 2) {
+    document.getElementById("n3").innerHTML = "X";
+    scenario1++;
+    z[3] = false;
+  } else if (n[1] !== "O" && scenario1 == 3) {
+    document.getElementById("n1").innerHTML = "X";
+    scenario1++;
+    z[1] = false;
+  } else if (n[7] !== "O" && scenario1 == 3) {
+    document.getElementById("n7").innerHTML = "X";
+    scenario1++;
+    z[7] = false;
+  } // scenario 2
+  else if (n[2] === "O" && scenario2 === 0) {
+    document.getElementById("n8").innerHTML = "X";
+    scenario2++;
+    scenario1 = -1;
+    scenario3 = -1;
+    scenario4 = -1;
+    scenario5 = -1;
+    z[8] = false;
+  } else if (n[0] !== "O" && scenario2 === 1) {
+    document.getElementById("n0").innerHTML = "X";
+    scenario2++;
+    z[0] = false;
+  } else if (n[1] !== "O" && scenario2 === 1) {
+    document.getElementById("n1").innerHTML = "X";
+    scenario2++;
+    z[1] = false;
+  } else if (n[7] !== "O" && scenario2 === 2) {
+    document.getElementById("n7").innerHTML = "X";
+    scenario2++;
+    z[7] = false;
+  } else if (n[5] !== "O" && scenario2 === 2) {
+    document.getElementById("n5").innerHTML = "X";
+    scenario2++;
+    z[5] = false;
+  } else if (n[3] !== "O" && scenario2 === 3) {
+    document.getElementById("n3").innerHTML = "X";
+    scenario2++;
+    z[3] = false;
+  } else if (n[6] !== "O" && scenario2 === 3) {
+    document.getElementById("n6").innerHTML = "X";
+    scenario2++;
+    z[6] = false;
+  } //scenario 3
+  else if (n[0] === "O" && scenario3 === 0) {
+    document.getElementById("n2").innerHTML = "X";
+    scenario3++;
+    scenario1 = -1;
+    scenario2 = -1;
+    scenario4 = -1;
+    scenario5 = -1;
+    z[2] = false;
+  } else if (n[6] !== "O" && scenario3 === 1) {
+    document.getElementById("n6").innerHTML = "X";
+    scenario3++;
+    z[6] = false;
+  } else if (n[3] !== "O" && scenario3 === 1) {
+    document.getElementById("n3").innerHTML = "X";
+    scenario3++;
+    z[3] = false;
+  } else if (n[5] !== "O" && scenario3 === 2) {
+    document.getElementById("n5").innerHTML = "X";
+    scenario3++;
+    z[5] = false;
+  } else if (n[7] !== "O" && scenario3 === 2) {
+    document.getElementById("n7").innerHTML = "X";
+    scenario3++;
+    z[7] = false;
+  } else if (n[1] !== "O" && scenario3 === 3) {
+    document.getElementById("n1").innerHTML = "X";
+    scenario3++;
+    z[1] = false;
+  } else if (n[8] !== "O" && scenario3 === 3) {
+    document.getElementById("n8").innerHTML = "X";
+    scenario3++;
+    z[8] = false;
+  } // scenario 4
+  else if (n[6] === "O" && scenario4 === 0) {
+    document.getElementById("n8").innerHTML = "X";
+    scenario4++;
+    scenario1 = -1;
+    scenario2 = -1;
+    scenario3 = -1;
+    scenario5 = -1;
+    z[8] = false;
+  } else if (n[0] !== "O" && scenario4 === 1) {
+    document.getElementById("n0").innerHTML = "X";
+    scenario4++;
+    z[0] = false;
+  } else if (n[3] !== "O" && scenario4 === 1) {
+    document.getElementById("n3").innerHTML = "X";
+    scenario4++;
+    z[3] = false;
+  } else if (n[5] !== "O" && scenario4 === 2) {
+    document.getElementById("n5").innerHTML = "X";
+    scenario4++;
+    z[5] = false;
+  } else if (n[1] !== "O" && scenario4 === 2) {
+    document.getElementById("n1").innerHTML = "X";
+    scenario4++;
+    z[1] = false;
+  } else if (n[7] !== "O" && scenario4 === 3) {
+    document.getElementById("n7").innerHTML = "X";
+    scenario4++;
+    z[7] = false;
+  } else if (n[2] !== "O" && scenario4 === 3) {
+    document.getElementById("n2").innerHTML = "X";
+    scenario4++;
+    z[2] = false;
+  } // scenario 5
+  else if (n[8] === "O" && scenario5 === 0) {
+    document.getElementById("n2").innerHTML = "X";
+    scenario5++;
+    scenario1 = -1;
+    scenario2 = -1;
+    scenario3 = -1;
+    scenario4 = -1;
+    z[2] = false;
+  } else if (n[6] !== "O" && scenario5 === 1) {
+    document.getElementById("n6").innerHTML = "X";
+    scenario5++;
+    z[6] = false;
+  } else if (n[7] !== "O" && scenario5 === 1) {
+    document.getElementById("n7").innerHTML = "X";
+    scenario5++;
+    z[7] = false;
+  } else if (n[1] !== "O" && scenario5 === 2) {
+    document.getElementById("n1").innerHTML = "X";
+    scenario5++;
+    z[1] = false;
+  } else if (n[5] !== "O" && scenario5 === 2) {
+    document.getElementById("n5").innerHTML = "X";
+    scenario5++;
+    z[5] = false;
+  } else if (n[3] !== "O" && scenario5 === 3) {
+    document.getElementById("n3").innerHTML = "X";
+    scenario5++;
+    z[3] = false;
+  } else if (n[0] !== "O" && scenario5 === 3) {
+    document.getElementById("n0").innerHTML = "X";
+    scenario5++;
+    z[0] = false;
+  }
+  if (!gameFinish) {
+    $("#turn").text(names[1]);
+  }
+  check();
+  clic = clic + 1; //(CHANGE ON CODE) we discussed why we add this statetemnt above
 }
-)
 
-$("#d5").click(function () {
-    if (z[4] === true) {
-        if (clic % 2 === 0) {
-            $("#n5").text("O");
-            clic++;
-        }
-        else {
-            $("#n5").text("X");
-            clic++;
-        }
-        z[4] = false;
-    }
-    check();
+for (var i = 0; i < 9; i++) {
+  var divelement = document.createElement("div");
+  divelement.id = i;
+  var parg = document.createElement("p");
+  var pargId = "n" + i;
+  parg.id = pargId;
+  divelement.appendChild(parg);
+  divelement.onclick = clickchange;
+  document.getElementById("main").appendChild(divelement);
 }
-)
 
-
-$("#d6").click(function () {
-    if (z[5] === true) {
-        if (clic % 2 === 0) {
-            $("#n6").text("O");
-            clic++;
-        }
-        else {
-            $("#n6").text("X");
-            clic++;
-        }
-        z[5] = false;
-    }
-    check();
+function finalwin() {
+  $("#page2").css("display", "none");
+  $("#page3").fadeIn(1500);
+  if (xwin === 2) {
+    $("#winner").text(names[0] + " is the final winner");
+  } else if (owin === 2) {
+    $("#winner").text(names[1] + " is the final winner");
+  }
 }
-)
-
-
-
-$("#d7").click(function () {
-    if (z[6] === true) {
-        if (clic % 2 === 0) {
-            $("#n7").text("O");
-            clic++;
-        }
-        else {
-            $("#n7").text("X");
-
-            clic++;
-        }
-        z[6] = false;
-    }
-    check();
-}
-)
-
-
-
-
-
-$("#d8").click(function () {
-    if (z[7] === true) {
-        if (clic % 2 === 0) {
-            $("#n8").text("O");
-            clic++;
-        }
-        else {
-            $("#n8").text("X");
-            clic++;
-        }
-        z[7] = false;
-    }
-    check();
-}
-)
-
-
-
-$("#d9").click(function () {
-    if (z[8] === true) {
-        
-        if (clic % 2 === 0) {
-            $("#n9").text("O");
-            clic++;
-        }
-        else {
-            $("#n9").text("X");
-            clic++;
-        }
-        z[8] = false;
-
-    }
-    check();
-}
-)
-
 
 function check() {
+  if (gameFinish) {
+    return;
+  }
 
-    for (var i = 0; i < 9; i++) {
-        var s = "#n" + (i + 1)
-        n[i] = $(s).text()
-    }
+  for (var i = 0; i < 9; i++) {
+    var s = "#n" + i;
+    n[i] = $(s).text();
+  }
 
-    if (n[0] === n[1] && n[0] === n[2]
-        && n[0] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[0] === "X"){
-             $("#turn").text("x winner");}
-        else
-             $("#turn").text("o 3")
+  {
+    if (n[0] === n[1] && n[0] === n[2] && n[0] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[0] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n0, #n1, #n2").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[3] === n[4] && n[4] === n[5] && n[3] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[3] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n3, #n4, #n5").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[6] === n[7] && n[6] === n[8] && n[6] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[6] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n6, #n7, #n8").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[0] === n[3] && n[0] === n[6] && n[0] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[0] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n0, #n3, #n6").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[1] === n[4] && n[1] === n[7] && n[1] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[4] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n4, #n1, #n7").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[2] === n[5] && n[2] === n[8] && n[2] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[2] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n5, #n8, #n2").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[2] === n[4] && n[2] === n[6] && n[2] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[2] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n4, #n6, #n2").css("color", "yellow");
+      gameFinish = true;
+    } else if (n[0] === n[4] && n[0] === n[8] && n[0] !== "") {
+      z = [false, false, false, false, false, false, false, false, false];
+      if (n[0] === "X") {
+        $("#turn").text(names[0] + " is the winner");
+        xwin++;
+        $("#xwin").text(xwin);
+      } else {
+        $("#turn").text(names[1] + " is the winner");
+        owin++;
+        $("#owin").text(owin);
+      }
+      $("#n0, #n4, #n8").css("color", "yellow");
+      gameFinish = true;
+    } else if (z.indexOf(true) === -1) {
+      $("#turn").text("Draw!");
+      gameFinish = true;
     }
-    if (n[3] === n[4] && n[4] === n[5] && n[3] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[3] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-    }
-    if (n[6] === n[7] && n[6] === n[8] && n[6] !== " ") {
-
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[6] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-    }
-    if (n[0] === n[3] && n[0] === n[6] && n[0] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[0] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-    }
-    if (n[1] === n[4] && n[1] === n[7] && n[1] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[4] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-    }
-    if (n[2] === n[5] && n[2] === n[8] && n[2] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[2] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-
-    }
-    if (n[2] === n[4] && n[2] === n[6] && n[2] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[2] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-    }
-    if (n[0] === n[4] && n[0] === n[8] && n[0] !== " ") {
-        z = [false, false, false, false, false, false, false, false, false]
-        if (n[0] === "X")
-             $("#turn").text("x winner");
-        else
-             $("#turn").text("o winner")
-    }
-
-
-
+  }
+  if (xwin === 2 || owin === 2) {
+    finalwin();
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
