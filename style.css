@@ -5,10 +5,8 @@ body {
 background-image: url("https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/Hq91_UdkZj2a3a08a/graphicstock-xoxo-hugs-and-kisses-seamless-pattern-hand-drawn-trendy-hipster-black-and-white-xo-background-ink-grungy-brush-texture_HqBeVCDm0Eb_thumb.jpg");
 /* background-image: url("./background.jpg"); */
 background-color: rgb(51, 197, 185);
+max-width: 100vw;
 }
-
-
-
 
 #container1
 {
@@ -18,7 +16,6 @@ width: 75vw;
 margin: 0 auto;
 margin-top: 15vh;
 }
-
 
 .turn{
     width: 300px;
@@ -30,7 +27,6 @@ margin-top: 15vh;
         font-size: 25px;
         padding: 10px
     }
-    
 
 #container
 {
@@ -43,11 +39,6 @@ justify-content: space-around;
 margin: 0 auto;
 margin-top: 15vh;
 }
-
-/* to be deleted */
-/* #page1{                   
-    display:none;
-} */
 
 #page2{
     display:none;
@@ -76,46 +67,22 @@ margin-top: 15vh;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     
-    /* margin: 0 auto;
-    position: absolute;
-    left:0;
-    right:10%;
-    top:0; 
-    bottom:0; */
-            
-
-}
+    }
 
 
 #main {
-
-/* margin: 0 auto; */
-
 width: 300px;
 height: 300px;
 background-color: rgb(0, 0, 0);
-/* position: absolute;
-
-left:10%;
-right:0;
-top:0; 
-bottom:0;
-        
-margin:auto;  */
 margin-top:15px;
-
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
 grid-template-rows: 1fr 1fr 1fr;
-
-
 }
 
 #main>div{
     border: solid white 2px; 
 }
-
-
 
 #details>div>div> p {
     font-size: 30px;
@@ -160,8 +127,6 @@ li{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    
-
 }
 
 #resultx >#xwin{
@@ -180,7 +145,6 @@ li{
     font-size: 60px;
     text-align: center;
     margin: 0 auto;
-    /* margin-top: 7px; */
     color: white;
     font-family: 'Indie Flower', cursive;
     font-weight: bold;
@@ -189,7 +153,8 @@ li{
 
 #resultx{
     grid-row: 1/3
-}
+} 
+
 #d11
 {
     grid-row: 1/2
